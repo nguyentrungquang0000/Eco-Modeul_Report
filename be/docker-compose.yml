@@ -1,0 +1,61 @@
+services:
+
+  pgadmin:
+    container_name: report-pgadmin
+    image: dpage/pgadmin4:8.6
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data_report:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - micro_net_report
+    restart: unless-stopped
+
+  ktv_grafana:
+    image: grafana/grafana
+    container_name: ktv_grafana
+    ports:
+      - "4000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - TZ=Asia/Ho_Chi_Minh
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - monitoring
+    logging:
+      driver: json-file
+      options:
+        max-size: "100m"
+        max-file: "30"
+
+  ktv_loki:
+    image: grafana/loki:2.9.0
+    container_name: ktv_loki
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml:ro
+      - loki-data:/loki
+    networks:
+      - monitoring
+    logging:
+      driver: json-file
+      options:
+        max-size: "100m"
+        max-file: "30"
+
+volumes:
+  postgres_data_report:
+  pgadmin_data_report:
+
+networks:
+  micro_net_report:
