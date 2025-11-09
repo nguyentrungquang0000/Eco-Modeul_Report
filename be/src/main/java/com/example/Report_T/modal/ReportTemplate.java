@@ -24,15 +24,35 @@ public class ReportTemplate {
     private String groupName;
     private String dbConnectionKey;
 
+    private String pageType;  //a4-ngang-LANDSCAPE -dọc-PORTRAIT
+    private float marginLeft;
+    private float marginRight;
+    private float marginTop;
+    private float marginBottom;
+
+    private String orderBy;
+
+    private boolean showIndex;
+    private float weightIndex;
+
     @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
     private List<ReportSubTable> subTables;
 
     @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
-    private List<ReportFiled> fileds;
+    private List<ReportField> Fields;
 
     @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
     private List<ReportFilter> filters;
 
     @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
-    private List<ReportGroup> groups;
+    private List<ReportHeader> headers;
+
+    @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
+    private List<ReportFooter> footers;
+
+    @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
+    private List<ReportGroupBy> groupBys;
+
+    @OneToMany(mappedBy = "reportTemplate", cascade = CascadeType.REMOVE)
+    private List<ReportOrderBy> orderBys;
 }

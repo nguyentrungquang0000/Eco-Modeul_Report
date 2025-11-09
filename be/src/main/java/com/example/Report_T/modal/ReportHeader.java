@@ -12,15 +12,19 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class ReportSubTable {
+public class ReportHeader {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String title;        // nội dung tiêu đề, vd: "BÁO CÁO NHÂN VIÊN"
+    private String fontName;     // font, vd: "times.ttf"
+    private int fontSize;        // cỡ chữ, vd: 16
+    private String alignment;    // LEFT | CENTER | RIGHT
+    private float spacingAfter;  // khoảng cách phía dưới, vd: 10f
+    private boolean bold;
+    private int index;
+    private boolean visible;
 
-    private String joinType;
-    private String subTableName;
-    private String joinOn;
-    private String alias;
     @ManyToOne
     @JoinColumn(name = "report_template_id")
     @JsonIgnore

@@ -1,4 +1,4 @@
-package com.example.Report_T.dto.request;
+package com.example.Report_T.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class FieldRequest {
-    private String fieldId;
-    private String groupName;
-    private int index;
+public class ReportNode {
+    private String id;
+    private String title;
+    private String category;
 }

@@ -12,15 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class ReportSubTable {
+public class ReportGroupBy {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String alias;       // tiêu đề phần group
+    private String fieldKey;    // tên trường trong DB
+    private String orderType;       // "ASC" hoặc "DESC"
+    private boolean visible;
+    private int index;
 
-    private String joinType;
-    private String subTableName;
-    private String joinOn;
-    private String alias;
     @ManyToOne
     @JoinColumn(name = "report_template_id")
     @JsonIgnore

@@ -12,19 +12,20 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class ReportGroup {
+public class ReportFooter {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
+    private String title;
+    private String note;
     private String name;
-    private String fieldKey;
-    private String label;
-    private String aggregationField;
+    private float fontSize;
+    private String fontName;
+    private int index;
+    private boolean visible;
 
     @ManyToOne
     @JoinColumn(name = "report_template_id")
     @JsonIgnore
     private ReportTemplate reportTemplate;
-
 }

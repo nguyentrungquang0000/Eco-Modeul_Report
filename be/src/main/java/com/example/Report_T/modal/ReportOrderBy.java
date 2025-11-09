@@ -12,14 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class ReportFiled {
+public class ReportOrderBy {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    private String alias;   // tên field
-    private String fieldKey;    // tên colum
-    private String dataType;    // kiểu dữ liệu
+    private String title;       // tiêu đề phần order
+    private String fieldKey;    // tên trường trong DB
+    private String orderType;       // "ASC" hoặc "DESC"
+    private boolean visible;
+    private int index;
 
     @ManyToOne
     @JoinColumn(name = "report_template_id")
